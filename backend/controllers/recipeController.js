@@ -1,25 +1,62 @@
-const mongoose = require('mongoose')
+const Recipe = require('../models/recipeModel');
 
-const recipe = require('../models/recipeModel');
-const Ingredient = require('../models/ingredientModel')
+// Fetch all recipes
+const fetchAllRecipe = async (req, res) => {
+    try {
+        const allRecipes = await Recipe.find(); 
+        res.status(200).json({ success: true, recipes: allRecipes });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to fetch recipes', error: error.message });
+    }
+};
 
-const fetchAllRecipe =(req,res)=>{
+// Fetch a recipe by its ID
+const fetchRecipeById = async (req, res) => {
+    try {
+        const recipeId = req.params.id;
+        const recipe = await Recipe.findById(recipeId); // Removed .populate as ingredients are now embedded
+        if (!recipe) {
+            return res.status(404).json({ success: false, message: 'Recipe not found' });
+        }
+        res.status(200).json({ success: true, recipe: recipe });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to fetch recipe', error: error.message });
+    }
+};
 
-}
-const fetchRecipeById =(req,res)=>{
+// Fetch recipes by ingredient name
+const fetchRecipeByIngredient = async (req, res) => {
+    try {
+        const ingredientName = req.query.ingredient; // Assuming it's passed as a query parameter
+        const recipes = await Recipe.find({name:ingredientName});
+        if (!recipes.length) {
+            return res.status(404).json({ success: false, message: 'No recipes found with that ingredient' });
+        }
+        res.status(200).json({ success: true, recipes: recipes });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to fetch recipes', error: error.message });
+    }
+};
 
-}
-const fetchRecipeByIngredient =(req,res)=>{
-
-}
-const fetchRecipeByName =(req,res)=>{
-
-}
-
+// Fetch recipes by recipe name
+const fetchRecipeByName = async (req, res) => {
+    try {
+        const recipeName = req.query.name; 
+        const recipes = await Recipe.find({
+            name: recipeName
+        });
+        if (!recipes.length) {
+            return res.status(404).json({ success: false, message: 'No recipes found with that name' });
+        }
+        res.status(200).json({ success: true, recipes: recipes });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to fetch recipes', error: error.message });
+    }
+};
 
 module.exports = {
     fetchAllRecipe,
     fetchRecipeById,
     fetchRecipeByName,
     fetchRecipeByIngredient
-}
+};

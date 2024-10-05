@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const connectToDB = ()=>{
     try{
-        mongoose.connect(ATLAS_URI);
+        mongoose.connect(process.env.ATLAS_URI);
         console.log('Database Connected');
     }
     catch(e){

@@ -1,26 +1,59 @@
-const mongoose = require('mongoose')
+const asyncHandler = require('express-async-handler');
 
-const savedRecipe = require('../models/savedRecipeModel');
+const SavedRecipe = require('../models/savedRecipeModel');
+const Recipe = require('../models/recipeModel');
+const User = require('../models/userModel');
 
-const fetchAllsavedRecipe =(req,res)=>{
+const fetchAllSavedRecipes = asyncHandler(async (req, res) => {
+    const allRecipes = await SavedRecipe.find({ userId: req.user.id });
+    res.status(200).json({ allRecipes });
+});
 
-}
-const fetchRecipeById =(req,res)=>{
+const fetchRecipeById = asyncHandler(async (req, res) => {
+    const recipe = await SavedRecipe.findOne({ userId: req.user.id, _id: req.params.id });
+    
+    if (!recipe) {
+        return res.status(404).json({ success: false, message: 'Recipe not found' });
+    }
 
-}
-const createNewRecipe = (req,res)=>{
+    res.status(200).json({ recipe });
+});
 
-}
+const createNewRecipe = asyncHandler(async (req, res) => {
+    const name = req.body.name;
+    const recipeId=req.body.recipeId;
 
-const deleteRecipe = (req, res)=>{
+    try {
+        const newItem = await SavedRecipe.create({
+            name,
+            recipeId,
+            userId: req.user.id
+        });
+        res.status(200).json({ success: true, item: newItem });
+    } catch (error) {
+        res.status(400).json({ success: false, error: error.message });
+    }
+});
 
-}
+const deleteRecipe = asyncHandler(async (req, res) => {
+    const savedRecipeId = req.params.id;
 
+    try {
+        const deletedSavedRecipe = await SavedRecipe.findByIdAndDelete(savedRecipeId);
 
+        if (!deletedSavedRecipe) {
+            return res.status(404).json({ success: false, message: 'Recipe not found' });
+        }
+
+        res.status(200).json({ success: true, message: 'Recipe deleted successfully' });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+});
 
 module.exports = {
-    fetchAllsavedRecipe,
+    fetchAllSavedRecipes,
     fetchRecipeById,
     createNewRecipe,
     deleteRecipe,
-}
+};

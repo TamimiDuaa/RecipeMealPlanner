@@ -17,6 +17,9 @@ const savedRecipeSchema = mongoose.Schema({
         type:Date,
         default: Date.now
     }
+},
+{
+    timestamps:true
 })
 
 const savedRecipe = mongoose.model('SavedRecipe', savedRecipeSchema)
