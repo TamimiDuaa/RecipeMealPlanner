@@ -14,7 +14,7 @@ const fetchAllRecipe = async (req, res) => {
 const fetchRecipeById = async (req, res) => {
     try {
         const recipeId = req.params.id;
-        const recipe = await Recipe.findById(recipeId); // Removed .populate as ingredients are now embedded
+        const recipe = await Recipe.findById(recipeId);
         if (!recipe) {
             return res.status(404).json({ success: false, message: 'Recipe not found' });
         }
@@ -27,7 +27,7 @@ const fetchRecipeById = async (req, res) => {
 // Fetch recipes by ingredient name
 const fetchRecipeByIngredient = async (req, res) => {
     try {
-        const ingredientName = req.query.ingredient; // Assuming it's passed as a query parameter
+        const ingredientName = req.query.ingredient; 
         const recipes = await Recipe.find({name:ingredientName});
         if (!recipes.length) {
             return res.status(404).json({ success: false, message: 'No recipes found with that ingredient' });
