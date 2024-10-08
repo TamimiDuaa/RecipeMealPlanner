@@ -4,7 +4,7 @@ const router = express.Router();
 const savedRecipes = require('../controllers/savedRecipeContoller')
 const protect = require('../middleware/authMiddleware');
 
-router.get('/',protect,savedRecipes.fetchAllsavedRecipe);
+router.get('/',protect,savedRecipes.fetchAllSavedRecipes);
 router.get('/:id',protect,savedRecipes.fetchRecipeById);
 
 router.post('/',protect, savedRecipes.createNewRecipe)

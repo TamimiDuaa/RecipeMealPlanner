@@ -3,20 +3,21 @@ import './App.css'
 import { Route, Routes } from "react-router-dom";
 import Login from './components/Login';
 import Register from './components/Register';
-import Nav from './components/Nav';
 import Aside from './components/Aside';
-
+import Dashboard from './components/Dashboard';
+import {AuthProvider} from './auth/authSlice';
 function App() {
   return (
     <>
       <div className='homePage'>
-        <Aside />
       
-      
-      <Routes>
-        <Route path='/' element={<Login />}/>
-        <Route path='/register' element={<Register />}/>
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path='/Dashboard' element={<Dashboard />}/>
+          <Route path='/' element={<Login />}/>
+          <Route path='/register' element={<Register />}/>
+        </Routes>
+      </AuthProvider>
       </div>
     </>
   )
