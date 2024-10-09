@@ -30,13 +30,15 @@ function Login() {
         const data = await response.data;
         const token = await data.token;
         console.log(data);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
 
         if (data) {
             
             login(data);
             navigate('/Dashboard');
+        }
+        else{
+            alert("This User doesn't exit")
         }
       };
     
