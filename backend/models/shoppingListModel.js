@@ -12,11 +12,11 @@ const shoppingListSchema = mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['Fruits','Grain' ,'Vegetables', 'Dairy', 'Chicken', 'Beverages', 'Snacks', 'Frozen', 'Pantry', 'Beef','Fish','Seafood','Desserts'],
+        enum: ['Fruits','Grain' ,'Vegetables', 'Dairy', 'Chicken', 'Beverages', 'Snacks', 'Frozen', 'Pantry', 'Beef','Fish','Seafood','Desserts','Spices','Dressing','Oils','Herbs','Condiments'],
     },
     unit:{
         type:String,
-        enum: ['kg', 'g', 'lb', 'oz', 'L', 'ml', 'pcs', 'pack'],
+        enum: ['kg', 'g', 'lb', 'oz', 'L', 'ml', 'pcs', 'pack','bottle','bunch'],
         default: 'pcs'
     },
     userId:{

@@ -100,11 +100,7 @@ const deleteItem = asyncHandler(async (req, res)=>{
         throw new Error('User not found')
       }
     
-      // Make sure the logged in user matches the item user
-      if (item.userId.toString() !== req.user.id) {
-        res.status(401)
-        throw new Error('User not authorized')
-      }
+     
     try{
         const deletedItem = await myKitchen.findByIdAndDelete(itemId);
         res.json({success: true});

@@ -37,7 +37,7 @@ const createNewItem =asyncHandler(async (req,res)=>{
         res.status(200).json({success:true, Item:newItem})
     }
     catch(e){
-        res.status(400).json({success:false, userId: req.user.id})
+        res.status(400).json({success:false, userId: req.user.id,message:e.message})
     }
 })
 const updateItem =asyncHandler(async (req, res)=>{
@@ -83,7 +83,7 @@ const updateItem =asyncHandler(async (req, res)=>{
 const deleteItem = asyncHandler(async (req, res)=>{
     const itemId = req.params.id;
     const item = shoppingList.findById(itemId);
-    
+    console.log("item Hello "+item);
     if (!item) {
         res.status(400)
         throw new Error('Item not found')
@@ -95,14 +95,15 @@ const deleteItem = asyncHandler(async (req, res)=>{
         throw new Error('User not found')
       }
     
-      // Make sure the logged in user matches the item user
-      if (item.userId.toString() !== req.user.id) {
+      // Check for user
+      if (!req.user) {
         res.status(401)
-        throw new Error('User not authorized')
+        throw new Error('User not found')
       }
     try{
+        console.log(itemId);
         const deletedItem = await shoppingList.findByIdAndDelete(itemId);
-        res.json({success: true});
+        res.json({success: true,deletedItem:deletedItem});
     }
     catch(e){
         res.json({success: false});
