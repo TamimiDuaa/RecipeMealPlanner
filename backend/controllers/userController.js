@@ -112,15 +112,17 @@ const updateUser =asyncHandler(async (req, res)=>{
     const updatedUser =await userModel.findByIdAndUpdate(userId,{
         name:name,
         email:email,
-        password: password
     })
-    res.json({success: true, updateUser: updatedUser});
+    const result =await userModel.findById(userId);
+    console.log(updatedUser);
+    res.json({success: true, updateUser: result});
 })
 
 //delete account
 const deleteUser =asyncHandler(async (req, res)=>{
     const userId = req.params.id;
     try{
+        console.log(userId);
         const deletedUser = await userModel.findByIdAndDelete(userId);
         res.json({success: true});
     }

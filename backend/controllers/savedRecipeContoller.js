@@ -5,7 +5,7 @@ const Recipe = require('../models/recipeModel');
 const User = require('../models/userModel');
 
 const fetchAllSavedRecipes = asyncHandler(async (req, res) => {
-    const allRecipes = await SavedRecipe.find({ userId: req.user.id });
+    const allRecipes = await SavedRecipe.find({ userId: req.user.id }).populate("recipeId");
     res.status(200).json({ allRecipes });
 });
 
@@ -22,12 +22,13 @@ const fetchRecipeById = asyncHandler(async (req, res) => {
 const createNewRecipe = asyncHandler(async (req, res) => {
     const name = req.body.name;
     const recipeId=req.body.recipeId;
-
+    
     try {
         const newItem = await SavedRecipe.create({
-            name,
-            recipeId,
+            name:name,
+            recipeId:recipeId,
             userId: req.user.id
+            // userId: req.user.id
         });
         res.status(200).json({ success: true, item: newItem });
     } catch (error) {

@@ -7,7 +7,7 @@ const protect = require('../middleware/authMiddleware');
 router.get('/',protect,savedRecipes.fetchAllSavedRecipes);
 router.get('/:id',protect,savedRecipes.fetchRecipeById);
 
-router.post('/',protect, savedRecipes.createNewRecipe)
+router.post('/', protect,savedRecipes.createNewRecipe)
 
 router.delete('/:id',protect, savedRecipes.deleteRecipe)
 

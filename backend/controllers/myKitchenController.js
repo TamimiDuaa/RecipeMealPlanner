@@ -9,7 +9,12 @@ const fetchAllItems = asyncHandler(async (req,res)=>{
     res.status(200).json({allItems:allItems});
     
 })
-
+const fetchItemById = asyncHandler(async (req,res)=>{
+    const itemId = req.params.id; 
+    const allItems =await myKitchen.find({userId: req.user.id, _id:itemId});
+    res.status(200).json({allItems:allItems});
+    
+})
 const createNewItem =asyncHandler(async (req,res)=>{
     const name = req.body.name;
     const quantity=req.body.quantity;
@@ -131,6 +136,7 @@ const deleteAllItems = asyncHandler(async(req, res)=>{
 
 module.exports = {
     fetchAllItems,
+    fetchItemById,
     createNewItem,
     updateItem,
     deleteItem,

@@ -5,6 +5,7 @@ const myKitchen = require('../controllers/myKitchenController')
 const protect = require('../middleware/authMiddleware');
 
 router.get('/',protect,myKitchen.fetchAllItems);
+router.get('/:id',protect,myKitchen.fetchItemById);
 
 router.post('/',protect, myKitchen.createNewItem)
 
