@@ -1,5 +1,5 @@
 import React from 'react'
-import './App.css'
+
 import { Route, Routes } from "react-router-dom";
 import Login from './components/Login';
 import Register from './components/Register';
@@ -11,6 +11,10 @@ import ShoppingList from './components/path/ShoppingList';
 import Kitchen from './components/path/Kitchen';
 import RecipeDetail from './components/path/RecipeDetail';
 import Profile from './components/path/Profile';
+
+
+
+import './App.css'
 function App() {
   return (
     <>

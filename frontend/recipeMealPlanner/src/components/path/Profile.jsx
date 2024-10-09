@@ -32,15 +32,13 @@ function Profile() {
             navigate('/');
             
         } else {
-            console.log("Item not deleted.");
+            console.log("Account not deleted.");
         }
     }
         
         
       const onSubmit = async (e) => {
         e.preventDefault();
-        // console.log(formData.email+"Hello");
-        // console.log("Welcome");\
        
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 

@@ -52,13 +52,17 @@ function Savedrecipes() {
                         <div key={recipe.recipeId._id}>
                         <Link to={`/Dashboard/recipes/${recipe.recipeId._id}`} >
                             <div className='rec'>
-                                <div className='recipeName'> <h5>{recipe.name}</h5> <h6>{recipe.recipeId.cuisine}</h6></div>
+                                <div className='recipeName'> 
+                                    <h5>{recipe.name}</h5> 
+                                    <h6>{recipe.recipeId.cuisine}
+                                    </h6>
+                                </div>
                                 
                                 <img src={recipe.recipeId.imageURL} width='200px' height='160px'/>
                                 
                             </div>
                         </Link>
-                        <div className='saveRecipeBtn'><button className='saveRecipe' onClick={()=>deleteRecipe(recipe._id)}>Delete</button></div>
+                            <div className='saveRecipeBtn'><h4>{recipe.savedDate.split("T")[0]}</h4> <button className='saveRecipe' onClick={()=>deleteRecipe(recipe._id)}>Delete</button></div>
                         </div>
 
                     ))}

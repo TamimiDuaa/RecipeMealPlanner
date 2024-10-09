@@ -276,3 +276,36 @@ input{
   color: antiquewhite;
 }
 
+.tableSection{
+  display: flex;
+  width: 70vw;
+
+  justify-content: space-between;
+
+}
+.delete{
+  background-color: rgb(174, 46, 46);
+  height: fit-content;
+  width: fit-content;
+
+}
+table{
+  width:50%;
+}
+td{
+  width:max-content;
+  padding:2rem;
+}
+.control{
+  display: flex;
+  justify-content: space-around;
+  
+}
+
+.control Button{
+  font-size: 12px;
+  background-color: rgb(54, 107, 54);
+}
+.control .delete{
+  background-color: rgb(222, 110, 110);
+}

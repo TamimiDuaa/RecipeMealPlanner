@@ -5,6 +5,9 @@ import {  useNavigate} from 'react-router-dom'
 import { AuthContext } from '../../auth/authSlice';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+
+
+import '../../App.css'
 function Home() {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
@@ -62,7 +65,7 @@ function Home() {
                         <div className='saveRecipeBtn'><button className='saveRecipe'  onClick={()=>Save(recipe)}>Save</button></div>
                         </div>
                     ))):(
-                        <h2>Loading...</h2>
+                       <h2>Loading ...</h2>
                     )}
                     </div>
                 </main>

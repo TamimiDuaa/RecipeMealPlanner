@@ -48,13 +48,18 @@ function RecipeDetail() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         console.log(response);
     }
-    const addShopList = async(name, category)=>{
+    const addShopList = async(ingredient)=>{
+        console.log(ingredient);
+
+        const unit = convertUnits(ingredient.category);
+        
         const ingredientData = {
-            name: name,
+            name: ingredient.name,
             quantity: 1,
-            category:category,
-            unit:"pcs"
+            category:ingredient.category,
+            unit:unit
         }
+        console.log(ingredientData);
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         const response = await axios.post("http://localhost:8000/shoppingList/",ingredientData);
         
@@ -65,36 +70,56 @@ function RecipeDetail() {
        
 
     }
-    const [ingredientAvailability, setIngredientAvailability] = useState({});
-
-useEffect(() => {
-    const checkAvailability = async () => {
-        if (recipe && recipe.ingredients) {
-            let availability = {};
-            for (let ingredient of recipe.ingredients) {
-                const available = await isAvailable(ingredient._id); // Pass ingredient._id
-                availability[ingredient._id] = available;
+    function convertUnits(category){
+        let result;
+        switch(category){
+            case 'Fruits':result ="kg";
+                         break;
+            case 'Grain':result ="kg";
+                         break;
+            case 'Vegetables':result ="kg";
+                         break;
+            case 'Dairy':result ="pack";
+                         break;    
+            case 'Chicken':result ="kg";
+                         break;
+            case 'Beverages':result ="L";
+                         break;
+            case 'Snacks':result ="pack";
+                         break;    
+            case 'Frozen':result ="pack";
+                         break;
+            case 'Pantry':result ="pack";
+                         break;
+            case 'Beef':result ="kg";
+                         break;   
+            case 'Fish':result ="kg";
+                         break;
+            case 'Seafood':result ="kg";
+                         break;
+            case 'Desserts':result ="pack";
+                         break;                                          
+            case 'Spices':result ="pack";
+                         break;
+            case 'Dressing':result ="bottle";
+                         break;
+            case 'Oils':result ="bottle";
+                         break;
+            case 'Herbs':result ="bunch";
+                         break;   
+            default: result = "pcs";         
             }
-            setIngredientAvailability(availability); // Store availability of all ingredients in state
+        return result;
+    }
+    const isAvailable=async()=>{
+        const response = await axios.get(`http://localhost:8000/myKitchen/${ingredient._id}`);
+        if(response.statusText === "OK"){
+            setIsAvailable(true);
         }
-    };
-    checkAvailability();
-}, [recipe]); // Re-run the effect when the recipe is updated
-
-    const isAvailable = async (ingredientId) => {
-        try {
-            const response = await axios.get(`http://localhost:8000/myKitchen/${user._id}/${ingredientId}`);
-            if (response.status === 200) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (error) {
-            console.error("Error checking availability:", error);
-            return false;
+        else{
+            setIsAvailable(false)
         }
-    };
-    
+    }
   return (
 
     <>
@@ -114,20 +139,16 @@ useEffect(() => {
                         <p><strong>Ingredients</strong></p>
                         {
                             recipe && recipe.ingredients ? (
+
                                 recipe.ingredients.map((ingredient, index) => (
                                 <div key={index}>
-                                    <div className='ingredient'>
-                                        <p>{ingredient.name}: {ingredient.quantity} {ingredient.unit} </p>
-                                        
-                                        {ingredientAvailability[ingredient._id] ? "Available in Kitchen" :
-                                        <button className='addShopList' onClick={() => { addShopList(ingredient.name, ingredient.category) }}>
-                                            Add to Shopping List
-                                        </button>}
-                                    </div>
+                                    <div className='ingredient'><p>{ingredient.name}: {ingredient.quantity} {ingredient.unit} </p><button className='addShopList' onClick={()=>{addShopList(ingredient)}}>Add to ShoppingList</button></div>
+                                    
                                 </div>
                                 ))
+                                
                             ) : (
-                                <p>No ingredients available</p>
+                                <p>No ingredients available</p> 
                             )
                         }
                         <strong>Instructions</strong>

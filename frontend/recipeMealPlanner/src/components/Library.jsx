@@ -30,7 +30,7 @@ function Library() {
                 <Link to='/Dashboard/mykitchen' className='item'>My Kitchen</Link>
             </div>
             <div className='logout'>
-                <button className='logoutBtn' onClick={Logout}>Logout</button>
+                <button className='logoutBtn delete' onClick={Logout}>Logout</button>
             </div>
 
         </aside>
