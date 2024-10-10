@@ -16,6 +16,26 @@ Demo
 A live demo of the application can be found here. 
 the video:  https://drive.google.com/file/d/1Z8m7WkHdZ7JMJroBDOQJGqA6rq09wn3T/view?usp=sharing
 
+JWT Authentication and CRUD
+
+User Authentication:
+
+Utilizes React's useContext and useState hooks to manage the user's login state.
+Upon user login, the backend verifies credentials and generates a JSON Web Token (JWT).
+The JWT is stored in local storage, maintaining the user's authentication state across sessions.
+For secured endpoints, the JWT is included in the Authorization header for subsequent requests, ensuring only authenticated users can access or modify resources.
+CRUD Operations with Axios:
+
+Full CRUD functionality is implemented using Axios to interact with the backend API.
+Create: POST requests are used to add new recipes, create a user, log in, add items to shopping lists, and add my kitchen to the database.
+Read: GET requests fetch all recipes, specific recipe details for display, all saved recipes, all shopping lists, and all kitchen items.
+Update: PUT requests are sent to modify existing users to update their names and emails.
+Delete: DELETE requests to remove saved recipes, delete user account, specific items, all items from the shopping list, and from the kitchen.
+Error handling is integrated to manage potential issues during API interactions effectively.
+Overall Integration:
+
+The combination of JWT authentication and Axios for CRUD operations creates a secure and efficient way to manage user authentication and data within the Recipe Meal Planner application.
+
 Installation
 To run the Recipe Meal Planner locally, follow these steps:
 
