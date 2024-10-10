@@ -29,7 +29,7 @@ Clone the repository:
 
 bash
 Copy code
-git clone https://github.com/your-username/recipe-meal-planner.git
+git clone https://github.com/TamimiDuaa/RecipeMealPlanner.git
 
 Navigate to the backend directory:
 
@@ -62,7 +62,7 @@ bash
 Copy code
 npm install
 
-Start the your frontend:
+Start your frontend:
 
 bash
 Copy code
