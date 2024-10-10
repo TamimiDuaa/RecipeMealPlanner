@@ -23,8 +23,8 @@ export const AuthProvider = ({ children }) => {
     
       localStorage.setItem('user', JSON.stringify(userData));
       localStorage.setItem('token', userData.token); // Assuming userData contains a 'token' field
-    
       setUser(userData);
+      
   };
 
   const logout = () => {
@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }) => {
      localStorage.removeItem('user');
      localStorage.removeItem('token');
      setUser(null);
+
   };
 
   const updateUser =(userData)=>{
